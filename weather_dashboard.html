@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <script src="https://api.openweathermap.org/data/2.5/weather"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #weather { margin: 20px; }
+        #forecast { margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Weather Dashboard</h1>
+    <input type="text" id="cityInput" placeholder="Enter city" />
+    <button id="fetchWeather">Get Weather</button>
+    <div id="weather"></div>
+    <div id="forecast"></div>
+  
+    <script>
+        const apiKey = 'YOUR_API_KEY';
+        document.getElementById('fetchWeather').addEventListener('click', function () {
+            const city = document.getElementById('cityInput').value;
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('weather').innerHTML = 
+            `<h2>Current Weather in ${data.name}</h2>
+            <p>${data.weather[0].description}</p>
+            <p>Temperature: ${(data.main.temp - 273.15).toFixed(2)}°C</p>`;
+                });
+        });
+
+        // You can add functionality for fetching 5-day forecast here.
+    </script>
+</body>
+</html>
